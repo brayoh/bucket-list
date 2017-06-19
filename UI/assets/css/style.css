@@ -2,7 +2,8 @@ body,
 html {
   min-height: 100%;
   height: 100%;
-  box-sizing: border-box; }
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box; }
 
 a {
   cursor: pointer; }
@@ -30,7 +31,7 @@ header {
   right: 0;
   width: 100%;
   height: 100%;
-  background: rgba(229, 233, 242, 0.8);
+  background: #e5e9f2 rgba(229, 233, 242, 0.8);
   z-index: 0; }
 
 .header-content {
@@ -54,7 +55,8 @@ header {
   padding: 2%; }
 
 .btn-ghost {
-  background: rgba(0, 0, 0, 0.6);
+  background: #000 rgba(0, 0, 0, 0.6);
+  opacity: .6;
   color: #FFF;
   border-color: #3a3b3c;
   z-index: 3;
@@ -65,7 +67,8 @@ header {
   border-radius: 4px; }
   .btn-ghost:hover {
     cursor: pointer;
-    background: rgba(71, 82, 94, 0.4); }
+    background: #47525e rgba(71, 82, 94, 0.4);
+    opacity: .4; }
 
 section > .container {
   margin: 100px auto; }
@@ -167,8 +170,8 @@ footer {
 /* general use classes */
 /* ghost button */
 .btn-ghost-2 {
-  /*padding: 2% 3% 2% 4%;*/
-  background: rgba(0, 0, 0, 0.3);
+  background: #000 rgba(0, 0, 0, 0.3);
+  opacity: .3;
   color: #FFF;
   border-color: #0275D8;
   z-index: 3;
@@ -193,8 +196,8 @@ footer {
 .shadow {
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  o-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.16), 0 6px 20px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -ms-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -o-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 /*# sourceMappingURL=style.css.map */
