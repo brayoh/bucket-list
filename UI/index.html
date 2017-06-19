@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -30,10 +30,13 @@
                             <a class="nav-link" href="#">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link" href="login.html">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/signup">Sign Up</a>
+                            <a class="nav-link" href="signup.html">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="loggedin_user.html">Dashboard</a>
                         </li>
                     </ul>
                 </div>
@@ -46,7 +49,7 @@
                     <h2>create your bucket list today</h2>
                 </div>
                 <div class="btn-container">
-                    <a href="/signup"><button class="btn btn-ghost">GET STARTED</button></a>
+                    <a href="signup.html"><button class="btn btn-ghost">GET STARTED</button></a>
                 </div>
             </div>
             <div class="header-overlay"></div>
@@ -59,7 +62,7 @@
                 <div class="row text-center">
                     <div class="col-4">
                         <div class="section-img">
-                            <img src="static/img/icons/clipboard.png" height="100" />
+                            <img src="assets/img/icons/clipboard.png" height="100" />
                         </div>
                         <div class="section-description">
                             <h3>Create</h3>
@@ -68,7 +71,7 @@
                     </div>
                     <div class="col-4">
                         <div class="section-img">
-                            <img src="static/img/icons/plan.png" height="100" />
+                            <img src="assets/img/icons/plan.png" height="100" />
                         </div>
 
                         <div class="section-description">
@@ -78,7 +81,7 @@
                     </div>
                     <div class="col-4">
                         <div class="section-img">
-                            <img src="static/img/icons/tick.png" height="100" />
+                            <img src="assets/img/icons/tick.png" height="100" />
                         </div>
                         <div class="section-description">
                             <h3>Achieve</h3>
@@ -100,7 +103,7 @@
                     <div class="col-4 item">
                         <div class="shadow">
                             <div class="item-image">
-                                <img class="img img-fluid" src="static/img/places/kilimanjaro.jpg" />
+                                <img class="img img-fluid" src="assets/img/places/kilimanjaro.jpg" />
                             </div>
                             <div class="item-description">
                                 <h5>Climb Mt Kilimanjaro</h5>
@@ -110,7 +113,7 @@
                     <div class="col-4 item">
                         <div class="shadow">
                             <div class="item-image">
-                                <img class="img img-fluid" src="static/img/places/eiffel_tower.jpg" />
+                                <img class="img img-fluid" src="assets/img/places/eiffel_tower.jpg" />
                             </div>
                             <div class="item-description">
                                 <h5>Visit the Eifell Tower</h5>
@@ -120,7 +123,7 @@
                     <div class="col-4 item">
                         <div class="shadow">
                             <div class="item-image">
-                                <img class="img img-fluid" src="static/img/places/pyramids.jpg" />
+                                <img class="img img-fluid" src="assets/img/places/pyramids.jpg" />
                             </div>
                             <div class="item-description">
                                 <h5>Visit the Pyramids of Giza</h5>
@@ -130,7 +133,7 @@
                     <div class="col-4 item">
                         <div class="shadow">
                             <div class="item-image">
-                                <img class="img img-fluid" src="static/img/places/victoria_falls.jpg" />
+                                <img class="img img-fluid" src="assets/img/places/victoria_falls.jpg" />
                             </div>
                             <div class="item-description">
                                 <h5>Visit Victoria Falls</h5>
@@ -140,7 +143,7 @@
                     <div class="col-4 item">
                         <div class="shadow">
                             <div class="item-image">
-                                <img class="img img-fluid" src="static/img/places/emirates.jpg" />
+                                <img class="img img-fluid" src="assets/img/places/emirates.jpg" />
                             </div>
                             <div class="item-description">
                                 <h5>Visit Emirates Stadium</h5>
@@ -150,7 +153,7 @@
                     <div class="col-4 item">
                         <div class="shadow">
                             <div class="item-image">
-                                <img class="img img-fluid" src="static/img/places/dolphins.jpg" />
+                                <img class="img img-fluid" src="assets/img/places/dolphins.jpg" />
                             </div>
                             <div class="item-description">
                                 <h5>Swim with the Dolphins</h5>
@@ -169,7 +172,7 @@
                     <div class="col-6 text-center m-auto">
                         <h1>Your Dreams Made Possible</h1>
                         <div style="margin-top:30px;">
-                            <a href="/signup"><button class="btn btn-ghost-2">Get Started</button></a>
+                            <a href="signup.html"><button class="btn btn-ghost-2">Get Started</button></a>
                         </div>
                     </div>
                 </div>
@@ -203,7 +206,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
