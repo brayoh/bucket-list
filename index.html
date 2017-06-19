@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <nav class="navbar navbar-inverse bg-primary navbar-toggleable-md navbar-light">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                 </button>
+                <a class="navbar-brand" href="#">List Bucket</a>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mr-5">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Sign Up</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="header-content m-auto">
+                <div class="small-heading">
+                    <h6>What are you waiting for?</h6>
+                </div>
+                <div>
+                    <h2>create your bucket list today</h2>
+                </div>
+                <div class="btn-container">
+                    <a href="/signup"><button class="btn btn-ghost">GET STARTED</button></a>
+                </div>
+            </div>
+            <div class="header-overlay"></div>
+        </header>
+
+        <!-- end header  -->
+
+        <section class="about">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="section-img">
+                            <img src="static/img/icons/clipboard.png" height="100" />
+                        </div>
+                        <div class="section-description">
+                            <h3>Create</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="section-img">
+                            <img src="static/img/icons/plan.png" height="100" />
+                        </div>
+
+                        <div class="section-description">
+                            <h3>Plan</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="section-img">
+                            <img src="static/img/icons/tick.png" height="100" />
+                        </div>
+                        <div class="section-description">
+                            <h3>Achieve</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--  end section about -->
+
+        <section class="editors-choice">
+            <div class="section-title">
+                <h2 class="text-center">Editor's Choice</h2>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 item">
+                        <div class="shadow">
+                            <div class="item-image">
+                                <img class="img img-fluid" src="static/img/places/kilimanjaro.jpg" />
+                            </div>
+                            <div class="item-description">
+                                <h5>Climb Mt Kilimanjaro</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 item">
+                        <div class="shadow">
+                            <div class="item-image">
+                                <img class="img img-fluid" src="static/img/places/eiffel_tower.jpg" />
+                            </div>
+                            <div class="item-description">
+                                <h5>Visit the Eifell Tower</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 item">
+                        <div class="shadow">
+                            <div class="item-image">
+                                <img class="img img-fluid" src="static/img/places/pyramids.jpg" />
+                            </div>
+                            <div class="item-description">
+                                <h5>Visit the Pyramids of Giza</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 item">
+                        <div class="shadow">
+                            <div class="item-image">
+                                <img class="img img-fluid" src="static/img/places/victoria_falls.jpg" />
+                            </div>
+                            <div class="item-description">
+                                <h5>Visit Victoria Falls</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 item">
+                        <div class="shadow">
+                            <div class="item-image">
+                                <img class="img img-fluid" src="static/img/places/emirates.jpg" />
+                            </div>
+                            <div class="item-description">
+                                <h5>Visit Emirates Stadium</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 item">
+                        <div class="shadow">
+                            <div class="item-image">
+                                <img class="img img-fluid" src="static/img/places/dolphins.jpg" />
+                            </div>
+                            <div class="item-description">
+                                <h5>Swim with the Dolphins</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- end about section -->
+
+        <section class="banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 text-center m-auto">
+                        <h1>Your Dreams Made Possible</h1>
+                        <div style="margin-top:30px;">
+                            <a href="/signup"><button class="btn btn-ghost-2">Get Started</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end about banner -->
+
+        <section class="divider"></section>
+
+        <!--  start footer -->
+        <footer>
+            <div class="container">
+                <div class="row m-auto text-center">
+                    <div class="col-3">
+                        <h4>Home</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>About</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>Login</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4>Sign Up</h4>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
