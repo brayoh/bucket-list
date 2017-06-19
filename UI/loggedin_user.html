@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
@@ -18,21 +19,20 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                  </button>
-            <a class="navbar-brand" href="#">List Bucket</a>
+            <a class="navbar-brand" href="index.html">List Bucket</a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mr-5">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
+                <ul class="navbar-nav ml-auto mr-6">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Login <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">My bucketlist</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Sign Up</a>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Brayoh
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -43,15 +43,62 @@
         <section class="bucketlist-info">
             <div class="container">
                 <div class="row">
-                    <div class="col-6 m-auto login-container shadow">
-                        <ul class="nav-tab">
-                            <li class="tab">
-                                <a class="nav-link active" href="#">Active</a>
-                            </li>
-                            <li class="tab">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                        </ul>
+                    <div class="col-8 m-auto shadow tabs-container">
+                        <div style="height: 60px">
+                            <ul class="navbar-tabs">
+                                <li class="tab active">
+                                    <a class="nav-link active" href="#">Active</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="nav-link" href="#">Done</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <ul>
+                                <li>
+                                    <span class="numbering">1.</span>
+                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
+                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
+                                    <i class="fa fa-edit fa-1x" title="edit"></i>
+                                </li>
+                                <li>
+
+                                    <span class="numbering">2.</span>
+                                    <span class="bucketlist-item">Go on a hike</span>
+                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
+                                    <i class="fa fa-edit fa-1x" title="edit"></i>
+                                </li>
+                                <li>
+
+                                    <span class="numbering">1.</span>
+                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
+                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
+                                    <i class="fa fa-edit fa-1x" title="edit"></i>
+                                </li>
+                                <li>
+
+                                    <span class="numbering">1.</span>
+                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
+                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
+                                    <i class="fa fa-edit fa-1x" title="edit"></i>
+                                </li>
+                                <li>
+
+                                    <span class="numbering">1.</span>
+                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
+                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
+                                    <i class="fa fa-edit fa-1x" title="edit"></i>
+                                </li>
+                                <li>
+
+                                    <span class="numbering">1.</span>
+                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
+                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
+                                    <i class="fa fa-edit fa-1x" title="edit"></i>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

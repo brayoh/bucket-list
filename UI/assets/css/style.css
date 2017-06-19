@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   min-height: 100%;
   height: 100%;
   box-sizing: border-box; }
@@ -53,28 +54,27 @@ header {
   padding: 2%; }
 
 .btn-ghost {
-  /* padding: 2% 3% 2% 4%; */
   background: rgba(0, 0, 0, 0.6);
-  color: #fff;
+  color: #FFF;
   border-color: #3a3b3c;
   z-index: 3;
   width: 35%;
   height: 50px;
-  font-size: .9rem;
-  transition: .3s background ease-in-out;
+  font-size: 0.9rem;
+  transition: 0.3s background ease-in-out;
   border-radius: 4px; }
   .btn-ghost:hover {
     cursor: pointer;
     background: rgba(71, 82, 94, 0.4); }
 
 section > .container {
-  margin: 100px auto 100px auto; }
+  margin: 100px auto; }
 
 .section-description {
   margin-top: 15px; }
 
 section.editors-choice > .container {
-  margin: 50px auto 100px auto; }
+  margin: 50px auto 100px; }
 section.editors-choice > .section-title {
   height: 100px;
   background: #E9F2ED; }
@@ -97,12 +97,12 @@ section.banner {
   width: 100%;
   height: 300px;
   background: url("../img/banner.jpg");
-  margin: 150px auto 0px auto; }
+  margin: 150px auto 0; }
 
 .banner h1 {
   position: relative;
   margin-top: 100px;
-  color: #fff; }
+  color: #FFF; }
 
 /* footer */
 footer {
@@ -110,26 +110,74 @@ footer {
   bottom: 0;
   background: #47525E;
   padding: 3%;
-  color: #fff; }
+  color: #FFF; }
 
 /* login page*/
 .login-container {
   padding: 5%; }
+
+/* styling for logged in user */
+.tabs-container {
+  padding: 0 !important; }
+  .tabs-container ul.navbar-tabs {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center; }
+    .tabs-container ul.navbar-tabs li {
+      float: left;
+      width: 50%;
+      border: 1px solid #E9F2ED;
+      background: #efefef; }
+      .tabs-container ul.navbar-tabs li a {
+        line-height: 2.5rem; }
+    .tabs-container ul.navbar-tabs li.active {
+      background: #FFF; }
+  .tabs-container .tab-content {
+    height: 100%; }
+    .tabs-container .tab-content ul {
+      padding: 0;
+      list-style: none;
+      margin: 0; }
+      .tabs-container .tab-content ul li {
+        padding: 1%;
+        min-height: 50px;
+        text-indent: 3%;
+        border: 1px solid #E9F2ED; }
+        .tabs-container .tab-content ul li span.numbering {
+          font-size: 1.6rem; }
+        .tabs-container .tab-content ul li span.bucketlist-item {
+          position: relative;
+          left: 5%;
+          font-size: 1.3rem;
+          line-height: 1.5; }
+        .tabs-container .tab-content ul li i {
+          position: relative;
+          float: right;
+          right: 5%;
+          top: 7px;
+          font-size: 1.5rem;
+          margin-left: 1.5%; }
+          .tabs-container .tab-content ul li i:hover {
+            cursor: pointer; }
+      .tabs-container .tab-content ul li:first-of-type {
+        border-top: none; }
 
 /* general use classes */
 /* ghost button */
 .btn-ghost-2 {
   /*padding: 2% 3% 2% 4%;*/
   background: rgba(0, 0, 0, 0.3);
-  color: #fff;
+  color: #FFF;
   border-color: #0275D8;
   z-index: 3;
   width: 35%;
   height: 50px;
-  transition: .3s background ease-in-out;
+  transition: 0.3s background ease-in-out;
   border-radius: 7px;
   text-transform: uppercase;
-  font-size: .9rem; }
+  font-size: 0.9rem; }
   .btn-ghost-2:hover {
     cursor: pointer; }
 
