@@ -5,8 +5,8 @@ engines:
   csslint:
     enabled: false
   duplication:
-  	enabled: true
+    enabled: true
     config:
-    	languages:
+      languages:
       - python
       - javascript
