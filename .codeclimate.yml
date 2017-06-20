@@ -1,0 +1,12 @@
+engines:
+    # since we are using hound-ci to lint our code files, we don't need the same in code climate
+  eslint:
+    enabled: false
+  csslint:
+    enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - python
+      - javascript
