@@ -1,3 +1,25 @@
+Version 0.2.0:
+ - Remove UI folder
+ - Merge branch 'master' of github.com:brayoh/bucket-list
+ - Merge branch 'feature/integrate-flask'
+ - Remove python 3.2 from travis config due to syntax differences
+ - Rename loggedin_user.html to dashboard.html
+ - rename loggedin_user.html to dashboard.html
+ - Add bucketlist class to create, update and delete bucketlist items
+ - Fix 404 errors for static files, add dashboard view, fix failing tests
+ - Integrate Flask into project, move UI folder into app folder so as to serve static content with Flask
+ - Merge pull request #6 from brayoh/hotfix/fix-hound-violations
+ - Serve static files with flask
+ - Add setup instructions to README
+ - add TDD for login, sign up and bucket list
+ - add server script
+ - add server script
+ - Add project dependencies
+ - Add code climate badge
+ - Write decimal values for opacity with a decimal at the front
+ - Move all mixins to top of element styling
+ - Change Hex Notations to lowercase, add mixins for overlay
+
 Version 0.1.0
  - Add bump version script to .gitignore
  - Merge pull request #4 from brayoh/feature/integrate-ci
