@@ -1,4 +1,5 @@
 @import "variables";
+@import "partials/mixins";
 
 body,
 html {
@@ -33,6 +34,7 @@ header {
 }
 
 .header-overlay {
+  @include overlay($light-overlay, 0.8);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -40,7 +42,6 @@ header {
   right: 0;
   width: 100%;
   height: 100%;
-  background: #e5e9f2 rgba(229, 233, 242, 0.8);
   z-index: 0;
 }
 
@@ -72,8 +73,7 @@ header {
 }
 
 .btn-ghost {
-  background: #000 rgba(0, 0, 0, .6);
-  opacity: .6;
+  @include overlay($black, 0.6);
   color: $white;
   border-color: rgb(58, 59, 60);
   z-index: 3;
@@ -84,9 +84,8 @@ header {
   border-radius: 4px;
 
   &:hover {
+    @include overlay($hover-opacity, 0.4);
     cursor: pointer;
-    background: #47525e rgba(71, 82, 94, .4);
-    opacity: .4;
   }
 }
 
@@ -228,8 +227,7 @@ footer {
 /* general use classes */
 /* ghost button */
 .btn-ghost-2 {
-  background: #000 rgba(0, 0, 0, 0.3);
-  opacity: .3;
+  @include dark-overlay(0.3);
   color: $white;
   border-color: $primary;
   z-index: 3;
