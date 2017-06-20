@@ -100,3 +100,6 @@ ENV/
 # mypy
 .mypy_cache/
 .sass-cache
+
+# bump version script
+./scripts/bump_version.sh
