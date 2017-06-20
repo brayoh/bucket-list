@@ -34,7 +34,7 @@ header {
 }
 
 .header-overlay {
-  @include overlay($light-overlay, .8);
+  @include overlay($light-overlay, 0.8);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -73,7 +73,7 @@ header {
 }
 
 .btn-ghost {
-  @include overlay($black, .6);
+  @include overlay($black, 0.6);
   color: $white;
   border-color: rgb(58, 59, 60);
   z-index: 3;
@@ -84,7 +84,7 @@ header {
   border-radius: 4px;
 
   &:hover {
-    @include overlay($hover-opacity, .4);
+    @include overlay($hover-opacity, 0.4);
     cursor: pointer;
   }
 }
@@ -227,7 +227,7 @@ footer {
 /* general use classes */
 /* ghost button */
 .btn-ghost-2 {
-  @include dark-overlay(.3);
+  @include dark-overlay(0.3);
   color: $white;
   border-color: $primary;
   z-index: 3;
