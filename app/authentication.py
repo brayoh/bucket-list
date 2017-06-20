@@ -1,59 +1,41 @@
-import json
+"""
+    Handle User Authentication and Registration
+"""
+ID = 0
 
-id = 0
-users = []
-bucketlist = []
-logged_in = False
 
 class Authentication(object):
-    # sign up new user
-    def create_user(self, username, password):
+    """ docstring for Authentication """
+
+    def __init__(self):
+        self.users = [{'id': 0, 'username': 'john', 'password': 'doe'}]
+
+    """ signup new user
+        parameters: username, password
+    """
+    def signup(self, username, password):
         user = {
-            'id': id+ 1,
+            'id': ID + 1,
             'username': username,
             'password': password
         }
-        users.append(user)
-        return True
 
-    # login user
+        total_users = len(self.users)
+        self.users.append(user)
+
+        # check if user object has incremented to be sure that user was added
+        return True if total_users < len(self.users) else False
+
+    """
+        login existing user
+        parameters: username, password
+    """
     def login(self, username, password):
-        for user in users:
+        for user in self.users:
             if username in dict.values(user):
-                pwd = user['password']
-                if pwd == password:
-                    logged_in = True
-                    return True # TODO: replace with json object { logged_in: true, statusCode: 200}
-                return False
-            return "user doesnt exist"
-
-    def create_bucket_list(self, username, item):
-        logged_in = True
-        if logged_in:
-            bucketlist.append({ 'user': username, 'item': item, 'done': False })
-            return True
-        else:
-            return "please login or sign up to add new bucketlist"
-
-    def update_bucket_list_item(self, username, item, updated_item):
-        logged_in = True
-        if logged_in:
-            for b_item in bucketlist:
-                if item in dict.values(b_item):
-                    b_item['item'] = updated_item
+                if password == user['password']:
                     return True
-                return False
+                else:
+                    break  # password is wrong break out of the loop
         else:
-            return "please login or sign up to add new bucketlist"
-
-    def delete_bucket_list_item(self, username, item):
-        logged_in = True
-        print("bucketlist", bucketlist, item)
-        if logged_in:
-            for b_item in bucketlist:
-                if item in dict.values(b_item):
-                    bucketlist.remove(b_item)
-                    return True
-                return "item not found"
-        else:
-            return "please login or sign up to add new bucketlist"
+            return False
