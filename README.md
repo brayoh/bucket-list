@@ -1,7 +1,8 @@
 # andela-bootcamp
 Pre Bootcamp Technical Assesment Test
 
-[Travis Badge](https://travis-ci.org/brayoh/bucket-list.svg?branch=master)
+[![Travis Badge](https://travis-ci.org/brayoh/bucket-list.svg?branch=master)]()
+[![Code Climate](https://img.shields.io/codeclimate/github/kabisaict/flow.svg)]()
 
 ## How to setup - for Debian users
 
@@ -33,5 +34,5 @@ Pre Bootcamp Technical Assesment Test
     http://127.0.0.1:5000
 
   ## How to run test
-    *after installing project dependencies run:     
-            nosetests
+    after installing project dependencies run:     
+     * nosetests
