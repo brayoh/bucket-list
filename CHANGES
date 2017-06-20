@@ -1,0 +1,22 @@
+Version 0.1.0
+ - Add bump version script to .gitignore
+ - Merge pull request #4 from brayoh/feature/integrate-ci
+ - Fix error in code climate config
+ - Add yml config files for hound-ci and code climate for linting styles
+ - Add browser prefix for mozilla
+ - Fix warnings shown on code climate, add travis badge
+ - Add requirements.txt to fix failing travis build
+ - Add configuration for travis
+ - Add missing variables scss file
+ - Merge pull request #3 from brayoh/feature/implement-design
+ - Add scss variables and implement dashboard design
+ - Remove deleted folder from git
+ - Add files in UI folder
+ - Move wireframes from UI folder into wireframes folder
+ - Move assets and html templates into UI folder
+ - Add scss folder and bash script to watch scss and convert css
+ - Add new folder with image mockups for login.signup and index.html
+ - Fix 404 error for static files in login and signup html
+ - Fix 404 error for static files, implement the mockup design
+ - Initial commit
+
