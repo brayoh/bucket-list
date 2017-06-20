@@ -1,0 +1,9 @@
+@mixin dark-overlay($opacity) {
+  background: rgb(0, 0, 0);
+  opacity: $opacity;
+}
+
+@mixin overlay($color, $opacity) {
+  background: unquote($color);
+  opacity: $opacity;
+}
