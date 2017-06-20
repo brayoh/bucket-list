@@ -1,2 +1,2 @@
 #!/bin/bash
-sass --watch UI/assets/scss/style.scss:UI/assets/css/style.css
+sass --watch app/static/scss/style.scss:UI/static/css/style.css
