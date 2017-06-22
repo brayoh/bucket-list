@@ -7,11 +7,14 @@ class AccountsManager(object):
     def __init__(self):
         self.users = []
 
-    """ add a new user to the db
-        parameters: username, password
-    """
     def signup(self, username, password):
-        user_id = (self.users[len(self.users)-1]['id'] + 1) if len(self.users) > 0 else id + 1
+        """add a new user to the db
+        parameters: username, password
+        """
+        if len(self.users) > 0:
+            user_id = (self.users[len(self.users)-1]['id'] + 1)
+        else:
+            user_id = id + 1
         user = {
             'id': user_id,
             'username': username,
@@ -20,21 +23,18 @@ class AccountsManager(object):
         }
         total_users = len(self.users)
 
-        if all(len(value) > 0 for value in [username, password]):
-            if self.get_user_id(username):
-                return False
-            else:
-                self.users.append(user)
-        else:
+        if self.get_user_id(username):
             return False
+        else:
+            self.users.append(user)
+
         # check if user list has incremented to be sure that user was added
         return True if total_users < len(self.users) else False
 
-    """
-        login an existing user
-        parameters: username, password
-    """
     def login(self, username, password):
+        """login an existing user
+        parameters: username, password
+        """
         for user in self.users:
             if username in dict.values(user):
                 if password == user['password']:
@@ -44,10 +44,10 @@ class AccountsManager(object):
         else:
             return False
 
-    """ find a user in our users list and return the id
-        parameters: username
-    """
     def get_user_id(self, username):
+        """find a user in our users list and return the id
+        parameters: username
+        """
         for user in self.users:
             if user['username'] == username:
                 return user['id']
