@@ -7,3 +7,13 @@
   background: unquote($color);
   opacity: $opacity;
 }
+
+// import google font
+@mixin google-font($font) {
+    $font: unquote($font);
+    @import url(https://fonts.googleapis.com/css?family=#{$font});
+}
+
+@mixin buttonShadow($vertical) {
+  box-shadow: 0 0 $vertical rgba(0,0,0,.14),0 $vertical $vertical*2 rgba(0,0,0,.28);
+}
