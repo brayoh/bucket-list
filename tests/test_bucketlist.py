@@ -13,10 +13,8 @@ class TestBucketListCrud(unittest.TestCase):
         self.bucketlist = None
 
     def test_creates_bucket_list(self):
-        account_manager = AccountsManager()
-        account_manager.signup("jane", "doe")
-        user_id = account_manager.get_user_id("jane")
-        print(user_id)
+        self.account_manager.signup("jane", "doe")
+        user_id = self.account_manager.get_user_id("jane")
         result = self.bucketlist.create_bucket_list(user_id, "dare devil","try thrilling experiences")
         self.assertEqual(result, True, "should create a new bucketlist")
 
