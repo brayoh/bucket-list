@@ -10,37 +10,58 @@ def index():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
-        if 'username' and 'password' in request.form:
-            username = request.form['username']
-            password = request.form['password']
-            user = accounts_manager.signup(username, password)
-            return jsonify({"status": "success","message":"user was registered successfully"})
+        if all(key in request.form for key in ("username","password")):
+            username = request.form['username'].strip()
+            password = request.form['password'].strip()
+            if all(len(value) > 0 for value in [username, password]):
+                user = accounts_manager.signup(username, password)
+                response = {"status": "success",
+                            "message":"user was registered successfully"
+                            }
+            else:
+                response = {"status":"failed",
+                            "message":"please enter a valid username or password to continue"
+                            }
+            return render_template("signup.html", response = response)
         else:
-            return jsonify({"status":"failed", "message":"username and password should be included in request body"})
+            response = {"status":"failed",
+                        "message":"please enter a valid username or password to continue"
+                        }
+            return render_template("signup.html", response = response)
     else:
-        return render_template("signup.html")
+        return render_template("signup.html", response = "")
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     users = accounts_manager.users
     if request.method == "POST":
-        if 'username' and 'password' in request.form:
-            username = request.form['username']
-            password = request.form['password']
-            login_user = accounts_manager.login(username, password)
-            if login_user:
-                session['username'] = username
-                return jsonify({"status": "success","message":"user login was successful"})
+        if all(key in request.form for key in ("username","password")):
+            username = request.form['username'].strip()
+            password = request.form['password'].strip()
+            if all(len(value) > 0 for value in [username, password]):
+                login_user = accounts_manager.login(username, password)
+                if login_user:
+                    session['username'] = username
+                    return redirect(url_for('dashboard'))
+                else:
+                    response = {"status": "failed",
+                                "message":"username or password is incorrect"
+                                }
+                    return render_template("login.html", response = response)
             else:
-                return jsonify({"status": "failed","message":"username or password is incorrect"})
+                response = {"status":"failed",
+                            "message":"please enter a valid username or password to continue"
+                            }
+                return render_template("login.html", response = response)
         else:
-            return jsonify({"status":"failed", "message":"username and password should be included in request body"})
-    return render_template("login.html")
+            response = {"status":"failed",
+                        "message":"please enter a valid username or password to continue"
+                        }
+            return render_template("login.html", response = response)
+    else:
+        return render_template("login.html", response = "")
 
-
-@app.route('/bucketlists')
-def get_all_bucketlists():
-    pass
 
 """ This method will handle all bucketlist activities (create, edit, update, delete)
         USAGE:
