@@ -86,44 +86,40 @@ def login():
 
 """
 
-@app.route('/bucketlist', methods=['GET','POST','PUT','DELETE'])
-def bucketlist():
+@app.route('/dashboard', methods=['GET','POST','PUT','DELETE'])
+def dashboard():
     method = request.method
     if 'username' in session:
         username = session['username']
         user_id = accounts_manager.get_user_id(username)
-
         if method == "POST":
             if all(key in request.form for key in ("name","description")):
-                name = request.form['name']
-                description = request.form['description']
+                name = request.form['name'].strip()
+                description = request.form['description'].strip()
                 new_bucketlist = bucket_list.create_bucket_list(user_id, name, description)
-                return jsonify({ "bucketlist": new_bucketlist[1], "status":"success", "message":"bucketlist created successfully"})
+                bucketlists = bucket_list.get_user_bucketlists(user_id)
+                response = {"status": "success",
+                            "message":"bucketlist created successfully"
+                            }
+                return render_template("dashboard.html", data = {'username' : username,
+                                                                'bucketlist': bucketlists,
+                                                                'response': response})
             else:
-                return jsonify({"status":"failed", "message":"name and description should be included in request body"})
+                response = {"status":"failed",
+                            "message":"please add a name and description to create a new bucketlist"}
+                bucketlists = bucket_list.get_user_bucketlists(user_id)
+
+                return render_template("dashboard.html", data = {'username' : username,
+                                                                'bucketlist': bucketlists,
+                                                                'response': response})
+
         elif method == "GET":
-            if 'id' in request.args:
                 # since user is logged in, we get all bucketlists with user_id for user
                 bucketlists = bucket_list.get_user_bucketlists(user_id)
-                return jsonify({"bucketlists": bucketlists})
-            else:
-                return jsonify({"status":"failed", "message":"bucketlist id should be included in request body"})
-        elif method == "PUT":
-            if all(key in request.form for key in ("id","type","update_value")):
-                bucketlist_id = request.form['id']
-                update_type = request.form['type']
-                update_value = request.form['update_value']
-
-                if bucket_list.check_bucketlist_exists(bucketlist_id):
-                    update = bucket_list.update_bucket_list(update_type, update_value)
-                    if update[0] == True:
-                        return jsonify({"bucketlists": update[1]})
-                    else:
-                        return jsonify({"status":"failed", "message":"bucketlist not found"})
-                else:
-                    return jsonify({"status":"failed", "message":"bucketlist not found"})
-            else:
-                return jsonify({"status":"failed", "message":"id, type, update_value should be included in request body"})
+                print(bucketlists)
+                return render_template("dashboard.html", data = {'username' : username,
+                                                                'bucketlist': bucketlists,
+                                                                'response': ""})
         elif method == "DELETE":
             if 'id' in request.args:
                 if bucket_list.delete_bucket_list(request.args['id']):
@@ -133,11 +129,30 @@ def bucketlist():
         else:
             abort(401)
     else:
-        return jsonify({"status":"failed", "message":"please login or signup or access your bucketlist"})
+        return redirect(url_for('login'))
 
+@app.route('/bucketlist/<id>', methods=['GET','POST'])
+def single_bucketlist(id):
+    if 'username' in session:
+        username = session['username']
+        user_id = int(accounts_manager.get_user_id(username))
+        bucketlist = bucket_list.get_bucketlist_by_id(user_id, int(id))
+        if request.method == "GET":
+            if all(key in request.args for key in ("name","description")):
+                name = request.args['name']
+                description = request.args['description']
+                update = bucket_list.update_bucket_list(int(id), name, description)
+                if update:
+                    return render_template("bucketlist.html", data = {"bucketlist": bucketlist,
+                                                                      "response": ""})
+                else:
+                    return render_template("bucketlist.html", data = {"bucketlist": bucketlist,
+                                                                      "response": "update failed"})
+        return render_template("bucketlist.html", data = {"bucketlist": bucketlist,
+                                                          "response": ""})
+    return redirect(url_for('login'))
 
-
-@app.route('/items',     methods=['GET','POST','PUT','DELETE'])
+@app.route('/items', methods=['GET','POST','PUT','DELETE'])
 def bucketlistitems():
     method = request.method
     if 'username' in session:
@@ -191,6 +206,9 @@ def bucketlistitems():
         return jsonify({"status":"failed", "message":"please login or signup or access your bucketlist"})
 
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template("dashboard.html")
+
+@app.route('/logout')
+def logout():
+   # remove the username from the session if it is there
+   session.pop('username', None)
+   return redirect(url_for('index'))

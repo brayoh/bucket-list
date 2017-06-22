@@ -12,34 +12,44 @@ class BucketList(object):
     """
     def create_bucket_list(self, user_id, name, description):
         bucketlist_id = (self.bucketlist[len(self.bucketlist)-1]['id'] + 1) if len(self.bucketlist) > 0 else id + 1
-        bucketlist = {
-            "id": bucketlist_id,
-            "user_id": user_id,
-            "name": name,
-            "description": description,
-            "created_at": datetime.utcnow().isoformat()
-        }
         total_items = len(self.bucketlist)
-        self.bucketlist.append(bucketlist)
+        try:
+            if all(len(value) > 0 for value in [name, description]):
+                if self.check_bucketlist_name_exists(name):
+                    return False
+
+                user_id = int(user_id)
+                bucketlist = {
+                    "id": bucketlist_id,
+                    "user_id": user_id,
+                    "name": name,
+                    "description": description,
+                    "created_at": datetime.utcnow().isoformat()
+                }
+                self.bucketlist.append(bucketlist)
+                print(self.bucketlist)
+            else:
+                return False
+            return True if total_items < len(self.bucketlist) else False
+        except TypeError:
+            raise TypeError("user id should be integer")
 
         # check if bucketlist list has incremented to be sure that user was added
-        return True, bucketlist if total_items < len(self.bucketlist) else False
 
 
     """ update a bucketlist
         parameters: bucketlist id, item to update, new item value
     """
-    def update_bucket_list(self, update_type, update_value):
-        if any(btype == update_type for btype in ["created_at", "id", "user_id"]):
-            return False, "invalid field"
+    def update_bucket_list(self, bucketlist_id, name, description):
+
+        for blist in self.bucketlist:
+            if bucketlist_id == blist['id']:
+                blist['name'] = name
+                blist['description'] = description
+                return True
+                break
         else:
-            for blist_item in self.bucketlist:
-                if update_type in dict.keys(blist_item):
-                    blist_item[update_type] = update_value
-                    return True, blist_item
-                    break
-            else:
-                return "bucketlist not found"
+            return "bucketlist not found"
 
 
     """ get bucketlist items for a specific user
@@ -66,11 +76,30 @@ class BucketList(object):
             return False
 
 
+    """ get bucketlist items for a specific user using bucketlist_id
+        parameters: user_id
+    """
+    def get_bucketlist_id(self, user_id, bucketlist_name):
+        for blist in self.bucketlist:
+            if user_id == blist['user_id'] and bucketlist_name == blist['name']:
+                return blist['id']
+                break
+        else:
+            return False
+
+
     """ check if bucketlist exists
         parameters: bucketlist_id
     """
     def check_bucketlist_exists(self, bucketlist_id):
         return any((int(blist['id']) == int(bucketlist_id)) for blist in self.bucketlist)
+
+
+    """ check if bucketlist name exists
+        parameters: bucketlist_id
+    """
+    def check_bucketlist_name_exists(self, name):
+        return any(blist['name'] == name for blist in self.bucketlist)
 
 
     """ delete bucketlist
