@@ -41,10 +41,70 @@
 
         <!-- end header  -->
 
+        <!-- Modal -->
+        <div class="modal fade" id="addBucketListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/dashboard" method="post" id="bucketlist-form">
+                        <div class="modal-header modal-header-primary">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Bucket List</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="username">Name:</label>
+                                    <input type="text" class="form-control modal-input" placeholder="bucket list name" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Description:</label>
+                                    <textarea name="description" rows="3" cols="80" class="form-control modal-input"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-secondary left" data-dismiss="modal">Close</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary right">Add Bucket List</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <section class="bucketlist-info">
             <div class="container">
                 <div class="row">
-                    <div class="col-8 m-auto shadow tabs-container">
+                    <div class="section-title">
+                        <h2 class="text-center" style="text-transform: capitalize">{{ data.username }}'s Bucket List</h2>
+                    </div>
+                    {% if data.bucketlist == []%}
+                        <h2 class="text-center bucketlist-empty">NOTHING TO SHOW...</h2>
+                    {% endif%}
+                    {% for bucketlist in data.bucketlist %}
+                        <div class="col-4 item">
+                            <div class="shadow">
+                                <div class="item-image">
+                                    <img class="img img-fluid" src="static/img/banner.jpg" />
+                                </div>
+                                <div class="item-description">
+                                    <div class="item-caption">
+                                        <h5>{{ bucketlist.name }}</h5>
+                                    </div>
+                                    <div class="clearfix">
+                                        <a href="/bucketlist/{{ bucketlist.id}}"><button class="btn btn-default" style="float: left">View</button></a>
+                                        <button class="btn btn-danger" style="float: right"><i class="fa fa-trash-0 fa-1x"></i>Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- <div class="col-8 m-auto shadow tabs-container">
                         <div style="height: 60px">
                             <ul class="navbar-tabs">
                                 <li class="tab active">

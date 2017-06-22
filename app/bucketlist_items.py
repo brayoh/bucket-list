@@ -51,12 +51,13 @@ class BucketListItems(object):
                 items.append(blist)
         return items
 
+
     """ get bucketlist items for a specific user using bucketlist_id
         parameters: user_id
     """
     def get_item_by_id(self, item_id):
-        for blist in self.bucketlist:
-            if user_id == blist['user_id'] and bucketlist_id == blist['id']:
+        for item in self.items:
+            if int(item_id) == item['id']:
                 return blist
                 break
         else:
