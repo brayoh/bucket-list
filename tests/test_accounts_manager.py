@@ -1,3 +1,5 @@
+""" This class contains tests for AccountsManager class
+"""
 import unittest
 from app.accounts_manager import AccountsManager
 
@@ -10,28 +12,20 @@ class AccountsManagerTest(unittest.TestCase):
     def tearDown(self):
         self.account_manager = None
 
-     # test other aspects
+    # test other aspects
     def test_creates_new_user(self):
         user = self.account_manager.signup("brian", "password")
         self.assertTrue(user, "user should be able to sign up")
 
-    def test_creates_new_user(self):
-        user = self.account_manager.signup("brian", "password")
-        self.assertTrue(user, "user should be able to sign up")
-
-    def test_returns_false_if_password_wrong(self):
+    def test_return_false_if_password_wrong(self):
         result = self.account_manager.login("brian", "pssord")
         self.assertFalse(result)
 
-    def test_returns_false_if_password_empty(self):
+    def test_return_false_if_password_empty(self):
         result = self.account_manager.login("brian", "")
         self.assertFalse(result)
 
-    def test_returns_false_if_username_empty(self):
-        result = self.account_manager.login("", "pass")
-        self.assertFalse(result)
-
-    def test_returns_false_if_both_empty(self):
+    def test_return_false_if_inputs_empty(self):
         result = self.account_manager.login("", "")
         self.assertFalse(result)
 
