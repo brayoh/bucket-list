@@ -18,10 +18,15 @@ class AccountsManager(object):
             'password': password,
             'created_at': datetime.utcnow().isoformat()
         }
-
         total_users = len(self.users)
-        self.users.append(user)
 
+        if all(len(value) > 0 for value in [username, password]):
+            if self.get_user_id(username):
+                return False
+            else:
+                self.users.append(user)
+        else:
+            return False
         # check if user list has incremented to be sure that user was added
         return True if total_users < len(self.users) else False
 
@@ -44,7 +49,8 @@ class AccountsManager(object):
     """
     def get_user_id(self, username):
         for user in self.users:
-            if username in dict.values(user):
+            if user['username'] == username:
                 return user['id']
-            else:
-                return None
+                break
+        else:
+            return None
