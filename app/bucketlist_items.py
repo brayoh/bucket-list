@@ -64,6 +64,11 @@ class BucketListItems(object):
                 items.append(item)
         return items
 
+    def get_item_id(self, item_name):
+        for item in self.items:
+            if item_name == item['name']:
+                return item['id']
+
     def check_item_exists(self, item_name):
         """ check if item exists
         parameters: item_name
