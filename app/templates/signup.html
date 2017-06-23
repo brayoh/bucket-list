@@ -44,6 +44,12 @@
         <section class="sign-up">
             <div class="container">
                 <div class="row">
+                    <div class="col-7 m-auto alert alert-success hidden text-center" role="alert" style="margin-bottom: 20px !important">
+                        <strong>Success!</strong> You successfully signed up.
+                    </div>
+                    <div class="col-7 m-auto alert alert-danger hidden text-center" role="alert" style="margin-bottom: 20px !important">
+                        <strong>Oops!</strong> error occured.
+                    </div>
                     <div class="col-6 m-auto login-container shadow">
                         <h2 class="text-center">Sign Up</h2>
                         <form action="/signup" method="post">
@@ -75,28 +81,16 @@
     <script>
         var status = "{{ response.status }}";
         if (status === "success") {
-            swal({
-                title: "Awesome!",
-                type: "success",
-                text: "You have been successfully signed up",
-                timer: 3000,
-                showConfirmButton: true
-            });
-
+            $('.alert-danger').addClass('hidden');
+            $('.alert-success').removeClass('hidden');
             //  redirect the user after successfully signing up
-            setTimeout(function(){
+            setTimeout(function() {
                 window.location = "/login"
-            }, 4000)
-        }
-        else if(status === "failed"){
+            }, 1200)
+        } else if (status === "failed") {
             var message = "{{ response.message }}";
-
-            swal({
-                title: "Oops!",
-                type: "error",
-                text: message,
-                showConfirmButton: true
-            });
+            $('.alert-danger').removeClass('hidden');
+            $('.alert-danger').html(message);
         }
     </script>
 </body>

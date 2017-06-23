@@ -11,25 +11,33 @@ def index():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """ This method will handle user signup
+    parameters: username, password
+    """
     if request.method == "POST":
         if all(key in request.form for key in ("username", "password")):
             username = request.form['username'].strip()
             password = request.form['password'].strip()
             if all(len(value) > 0 for value in [username, password]):
                 user = accounts_manager.signup(username, password)
-                response = {"status": "success",
-                            "message": "user was registered successfully"
-                            }
+                if user:
+                    response = {"status": "success",
+                                "message": "user was registered successfully"
+                                }
+                else:
+                    response = {"status": "failed",
+                                "message": "username is already taken"
+                                }
             else:
                 response = {"status": "failed",
-                            "message": """please enter a valid username
-                                       or password to continue"""
+                            "message": ("please enter a valid username "
+                                        "or password to continue")
                             }
             return render_template("signup.html", response=response)
         else:
             response = {"status": "failed",
-                        "message": """please enter a valid username or
-                                   password to continue"""
+                        "message": ("please enter a valid username or "
+                                    "password to continue")
                         }
             return render_template("signup.html", response=response)
     else:
@@ -38,6 +46,9 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """ This method will handle user login
+    parameters: username, password
+    """
     users = accounts_manager.users
     if request.method == "POST":
         if all(key in request.form for key in ("username", "password")):
@@ -50,22 +61,22 @@ def login():
                     return redirect(url_for('dashboard'))
                 else:
                     response = {"status": "failed",
-                                "message": """username or password is
-                                           incorrect"""
+                                "message": ("username or password is "
+                                            "incorrect")
                                 }
                     return render_template("login.html",
                                            response=response)
             else:
                 response = {"status": "failed",
-                            "message": """please enter a valid username
-                                        or password to continue"""
+                            "message": ("please enter a valid username "
+                                        "or password to continue")
                             }
                 return render_template("login.html",
                                        response=response)
         else:
             response = {"status": "failed",
-                        "message": """please enter a valid username or
-                                   password to continue"""
+                        "message": ("please enter a valid username or "
+                                    "password to continue")
                         }
             return render_template("login.html", response=response)
     else:
@@ -80,26 +91,43 @@ def dashboard():
     if 'username' in session:
         username = session['username']
         user_id = accounts_manager.get_user_id(username)
+        bucketlists = bucket_list.get_user_bucketlists(user_id)
         if method == "POST":
             if all(key in request.form for key in ("name", "description")):
                 name = request.form['name'].strip()
                 description = request.form['description'].strip()
-                new_bucketlist = bucket_list.create_bucket_list(user_id,
-                                                                name,
-                                                                description)
-                bucketlists = bucket_list.get_user_bucketlists(user_id)
-                response = {"status": "success",
-                            "message": "bucketlist created successfully"
-                            }
-                return render_template("dashboard.html",
-                                       data={'username': username,
-                                             'bucketlist': bucketlists,
-                                             'response': response})
+                if name and description:
+                    blist = bucket_list.create_bucket_list(user_id, name,
+                                                           description)
+                    if blist:
+                        bucketlists = bucket_list.get_user_bucketlists(user_id)
+                        response = {"status": "success",
+                                    "message": ("bucketlist created "
+                                                " successfully")}
+                        return render_template("dashboard.html",
+                                               data={'username': username,
+                                                     'bucketlist': bucketlists,
+                                                     'response': response})
+                    else:
+                        response = {"status": "failed",
+                                    "message": ("bucketlist with a similar"
+                                                " name already exists")}
+                        return render_template("dashboard.html",
+                                               data={'username': username,
+                                                     'bucketlist': bucketlists,
+                                                     'response': response})
+                else:
+                    response = {"status": "failed",
+                                "message": ("please add details to "
+                                            "create a new bucketlist")}
+                    return render_template("dashboard.html",
+                                           data={'username': username,
+                                                 'bucketlist': bucketlists,
+                                                 'response': response})
             else:
                 response = {"status": "failed",
-                            "message": """please add details to
-                            create a new bucketlist"""}
-                bucketlists = bucket_list.get_user_bucketlists(user_id)
+                            "message": ("please add details to "
+                                        "create a new bucketlist")}
 
                 return render_template("dashboard.html",
                                        data={'username': username,
@@ -107,15 +135,40 @@ def dashboard():
                                              'response': response})
 
         elif method == "GET":
-                # get all bucketlists with user_id for logged in user
-                bucketlists = bucket_list.get_user_bucketlists(user_id)
-                print(bucketlists)
-                return render_template("dashboard.html",
-                                       data={'username': username,
-                                             'bucketlist': bucketlists,
-                                             'response': ""})
-        else:
-            abort(401)
+            if 'delete' in request.args:
+                bucketlist_id = request.args['delete']
+                delete_blist = bucket_list.delete_bucket_list(bucketlist_id)
+                if delete_blist:
+                    return redirect(url_for("dashboard"))
+                else:
+                    response = {"status": "failed",
+                                "message": "bucketlist not found"}
+                    return render_template("dashboard.html",
+                                           data={'username': username,
+                                                 'bucketlist': bucketlists,
+                                                 'response': ""})
+
+            elif all(key in request.args for key in ("name", "description")):
+                name = request.args['name']
+                description = request.args['description']
+                bucketlist_id = request.args['bucketlist_id']
+                update = bucket_list.update_bucket_list(int(bucketlist_id),
+                                                        name,
+                                                        description)
+                if update:
+                    return redirect(url_for("dashboard"))
+                else:
+                    response = {"status": "failed",
+                                "message": "bucketlist not found"}
+
+                    return render_template("dashboard.html",
+                                           data={'username': username,
+                                                 'bucketlist': bucketlists,
+                                                 "response": response})
+            return render_template("dashboard.html",
+                                   data={'username': username,
+                                         'bucketlist': bucketlists,
+                                         'response': ""})
     else:
         return redirect(url_for('login'))
 
@@ -126,24 +179,75 @@ def single_bucketlist(id):
         username = session['username']
         user_id = int(accounts_manager.get_user_id(username))
         bucketlist = bucket_list.get_bucketlist_by_id(user_id, int(id))
+        items = bucket_list_items.get_item_by_bucketlist_id(int(id))
+
         if request.method == "GET":
-            if all(key in request.args for key in ("name", "description")):
-                name = request.args['name']
-                description = request.args['description']
-                update = bucket_list.update_bucket_list(int(id),
-                                                        name,
-                                                        description)
-                if update:
+            if all(key in request.args for key in ("activity_name",
+                                                   "activity_id")):
+                name = request.args['activity_name']
+                activity_id = request.args['activity_id']
+                if any(value == '' for value in['id', 'activity_id']):
                     return render_template("bucketlist.html",
                                            data={"bucketlist": bucketlist,
-                                                 "response": ""})
+                                                 "activities": items,
+                                                 "error":
+                                                 "invalid data provided"})
+                update_item = bucket_list_items.update_item(activity_id,
+                                                            name)
+                if update_item:
+                    return render_template("bucketlist.html",
+                                           data={"bucketlist": bucketlist,
+                                                 "activities": items,
+                                                 "error": ""})
                 else:
                     return render_template("bucketlist.html",
                                            data={"bucketlist": bucketlist,
-                                                 "response": "update failed"})
-        return render_template("bucketlist.html",
-                               data={"bucketlist": bucketlist,
-                                     "response": ""})
+                                                 "activities": items,
+                                                 "error": "item not found"})
+
+            elif 'delete' in request.args:
+                item_id = int(request.args['delete'])
+                delete_item = bucket_list_items.delete_item(item_id)
+                items = bucket_list_items.get_item_by_bucketlist_id(int(id))
+
+                if delete_item:
+                    url = "/bucketlist/{}".format(id)
+                    return redirect(url)
+                else:
+                    return render_template("bucketlist.html",
+                                           data={"bucketlist": bucketlist,
+                                                 "activities": items,
+                                                 "error": ("activity"
+                                                           "not found")})
+            return render_template("bucketlist.html",
+                                   data={"bucketlist": bucketlist,
+                                         "activities": items,
+                                         "error": ""})
+        elif request.method == "POST":
+                name = request.form['activity_name']
+                if name != '':
+                    item = bucket_list_items.create_item(int(id), name)
+                    if item:
+                        items = bucket_list_items.get_item_by_bucketlist_id(id)
+                        return render_template("bucketlist.html",
+                                               data={"bucketlist": bucketlist,
+                                                     "activities": items,
+                                                     "error": ""})
+                    else:
+                        response = {"status": "failed",
+                                    "message": ("activity already exists"
+                                                " please choose a"
+                                                "different name")}
+                        return render_template("bucketlist.html",
+                                               data={"bucketlist": bucketlist,
+                                                     "activities": items,
+                                                     "error": response})
+
+                else:
+                    return render_template("bucketlist.html",
+                                           data={"bucketlist": bucketlist,
+                                                 "activities": items,
+                                                 "error": ""})
     return redirect(url_for('login'))
 
 

@@ -23,13 +23,12 @@ class AccountsManager(object):
         }
         total_users = len(self.users)
 
-        if self.get_user_id(username):
+        if self.check_user_exists(username):
             return False
         else:
             self.users.append(user)
-
-        # check if user list has incremented to be sure that user was added
-        return True if total_users < len(self.users) else False
+            # check if user list has incremented to be sure that user was added
+            return True if total_users < len(self.users) else False
 
     def login(self, username, password):
         """login an existing user
@@ -53,4 +52,15 @@ class AccountsManager(object):
                 return user['id']
                 break
         else:
-            return None
+            return False
+
+    def check_user_exists(self, username):
+        """find a user in our users list
+        parameters: username
+        """
+        for user in self.users:
+            if user['username'] == str(username):
+                return True
+                break
+        else:
+            return False

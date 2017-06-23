@@ -22,14 +22,15 @@ class BucketList(object):
             if all(len(value) > 0 for value in [name, description]):
                 if self.check_bucketlist_name_exists(name):
                     return False
-                bucketlist = {
-                    "id": bucketlist_id,
-                    "user_id": int(user_id),
-                    "name": name,
-                    "description": description,
-                    "created_at": datetime.utcnow().isoformat()
-                }
-                self.bucketlist.append(bucketlist)
+                else:
+                    bucketlist = {
+                        "id": bucketlist_id,
+                        "user_id": int(user_id),
+                        "name": name,
+                        "description": description,
+                        "created_at": datetime.utcnow().isoformat()
+                    }
+                    self.bucketlist.append(bucketlist)
             else:
                 return False
             return True if total_items < len(self.bucketlist) else False
@@ -38,16 +39,13 @@ class BucketList(object):
 
     def update_bucket_list(self, bucketlist_id, name, description):
         """ update a bucketlist
-        parameters: bucketlist id, item to update, new item value"""
-
+        parameters: bucketlist id, new name, new description"""
         for blist in self.bucketlist:
             if bucketlist_id == blist['id']:
                 blist['name'] = name
                 blist['description'] = description
                 return True
                 break
-        else:
-            return "bucketlist not found"
 
     def get_user_bucketlists(self, user_id):
         """ get bucketlist items for a specific user
@@ -85,7 +83,7 @@ class BucketList(object):
         return any((int(blist['id']) == int(id)) for blist in self.bucketlist)
 
     def check_bucketlist_name_exists(self, name):
-        """ check if bucketlist name exists parameters: bucketlist_id """
+        """ check if bucketlist name exists parameters: bucketlist_name """
         return any(blist['name'] == name for blist in self.bucketlist)
 
     def delete_bucket_list(self, bucketlist_id):
@@ -94,5 +92,5 @@ class BucketList(object):
             if int(bucketlist_id) == int(blist_item['id']):
                 self.bucketlist.remove(blist_item)
                 return True
-            break
-        return "bucketlist not found"
+                break
+        return False

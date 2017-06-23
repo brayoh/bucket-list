@@ -9,9 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
 </head>
 
 <body>
@@ -24,16 +25,14 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mr-6">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">My bucketlist</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">My bucketlist</a>
                     </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          {{ data.username }}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/logout">Logout</a>
-                        </div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Add Activity</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -41,19 +40,18 @@
 
         <!-- end header  -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="addBucketListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- edit bucketlist Modal -->
+        <div class="modal fade" id="addBucketListModal" tabindex="-1" role="dialog" aria-labelledby="addBucketListModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form action="" method="get" id="bucketlist-form">
                         <div class="modal-header modal-header-primary">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Bucket List</h5>
+                            <h5 class="modal-title" id="addBucketListModalLabel">Add Bucket List Item</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         </div>
                         <div class="modal-body">
-
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="username">Name:</label>
@@ -77,98 +75,92 @@
                 </div>
             </div>
         </div>
+        <!-- end add bucketlist modal -->
+
+        <!-- Add activity Modal -->
+        <div class="modal fade" id="addActivityModal" tabindex="-1" role="dialog" aria-labelledby="addActivityModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="post" id="activity-form">
+                        <div class="modal-header modal-header-primary">
+                            <h5 class="modal-title" id="addActivityModaLabel">Add Activity</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="username">Activity Name:</label>
+                                    <input type="text" class="form-control modal-input" placeholder="activity name" name="activity_name">
+                                    <input type="hidden" class="form-control modal-input" name="activity_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-secondary left" data-dismiss="modal">Close</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary right">Add Activity</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--  end activity modal -->
         <section class="bucketlist-info">
             <div class="container">
                 <div class="row">
-                    <div class="col-8 m-auto" style="padding: 2%">
-                        <div class="" style="padding:2%">
-                            <button type="button" class="btn btn-default" style="float: left" onclick="javascript:BucketList.showModal('{{ data.bucketlist.id }}','{{ data.bucketlist.name }}', '{{  data.bucketlist.description }}')">Edit</button>
-                            <br />
-                            <br />
-                            <h2>Name: {{ data.bucketlist.name }} </h2>
-                            <h2>Description: {{ data.bucketlist.description }}</h2>
-                            {{ data.response }}
-                        </div>
+                    <div class="col-7 m-auto alert alert-danger hidden text-center" role="alert" style="margin-bottom: 20px !important">
+                        <strong>Oops!</strong> error occured.
                     </div>
                 </div>
                 <div class="row">
-                    <!-- <div class="col-4 item m-auto">
-                        <div class="shadow">
-                            <div class="item-image">
-                                <img class="img img-fluid" src="/static/img/banner.jpg" />
-                            </div>
-                            <div class="item-description">
-                                <div class="item-caption">
-                                    <h5>{{ data.bucketlist.name }}</h5>
-                                </div>
-                                <div class="clearfix">
-                                    <button class="btn btn-default" style="float: left" onclick="javascript:BucketList.showModal('{{ data.bucketlist.name }}', '{{  data.bucketlist.description }}')">Update</button>
-                                    <button class="btn btn-danger" style="float: right"><i class="fa fa-trash-0 fa-1x"></i>Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="col-8 m-auto shadow tabs-container">
-                        <div style="height: 60px">
-                            <ul class="navbar-tabs">
-                                <li class="tab active">
-                                    <a class="nav-link active" href="#">Active</a>
-                                </li>
-                                <li class="tab">
-                                    <a class="nav-link" href="#">Done</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-content">
-                            <ul>
-                                <li>
-                                    <span class="numbering">1.</span>
-                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
-                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
-                                    <i class="fa fa-edit fa-1x" title="edit"></i>
-                                </li>
-                                <li>
-
-                                    <span class="numbering">2.</span>
-                                    <span class="bucketlist-item">Go on a hike</span>
-                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
-                                    <i class="fa fa-edit fa-1x" title="edit"></i>
-                                </li>
-                                <li>
-
-                                    <span class="numbering">1.</span>
-                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
-                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
-                                    <i class="fa fa-edit fa-1x" title="edit"></i>
-                                </li>
-                                <li>
-
-                                    <span class="numbering">1.</span>
-                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
-                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
-                                    <i class="fa fa-edit fa-1x" title="edit"></i>
-                                </li>
-                                <li>
-
-                                    <span class="numbering">1.</span>
-                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
-                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
-                                    <i class="fa fa-edit fa-1x" title="edit"></i>
-                                </li>
-                                <li>
-
-                                    <span class="numbering">1.</span>
-                                    <span class="bucketlist-item">Climb Mt.Kenya</span>
-                                    <i class="fa fa-trash-o fa-1x" title="delete"></i>
-                                    <i class="fa fa-edit fa-1x" title="edit"></i>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="col-8 m-auto">
+                        <table id="bucketlist-activities" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Bucket List Name</th>
+                                    <th>Activity Name</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Bucket List Name</th>
+                                    <th>Activity Name</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for activity in data.activities %}
+                                <tr>
+                                    <td>{{ activity.id }}</td>
+                                    <td>{{ data.bucketlist.name }}</td>
+                                    <td>{{ activity.name }}</td>
+                                    <td>{{ activity.created_at }}</td>
+                                    <td>{{ activity.done }}</td>
+                                    <td class="activity-options">
+                                        <span class="fa fa-edit fa-2x" onclick="javascript:BucketList.showModal('{{ activity.id }}','{{ activity.name }}', '','add-activity')"></span>
+                                        <a href="/bucketlist/{{ data.bucketlist.id }}?delete={{ activity.id }}"><span class="fa fa-trash-o fa-2x"></span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="floating-btn">
+        <section class="floating-btn" id="add-activity">
             <div class="floating-btn__action-button" id="action-button">
                 <i class="action-button__icon material-icons">add</i>
                 <p class="action-button__text--show">Add Items</p>
@@ -182,12 +174,21 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script>
-        // var bucklist = "{{ data.bucketlist|safe }}";
-        // console.log(JSON.parse(bucklist))
-        console.log("{{ data.bucketlist }}")
+        var error = "{{ data.error.status }}";
+        console.log(error.status);
+        if (error === 'failed') {
+            var message = "{{ data.error.message }}";
+            console.log(message);
+            $('.alert-danger').removeClass('hidden');
+            $('.alert-danger').html(message);
+        }
+        $(document).ready(function() {
+            $('#bucketlist-activities').DataTable();
+        });
     </script>
 </body>
 

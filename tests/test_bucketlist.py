@@ -70,8 +70,8 @@ class TestBucketListCrud(unittest.TestCase):
                                                    "dare devil",
                                                    "try thrilling experiences")
         bucketlist_id = self.bucketlist.get_bucketlist_id(user_id,
-                                                          "dare devil"
-                                                          )
+                                                          "dare devil")
+        print(bucketlist_id)
         result = self.bucketlist.update_bucket_list(bucketlist_id,
                                                     "dare devil",
                                                     "try something new")
