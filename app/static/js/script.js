@@ -66,9 +66,6 @@
                     case "hidden":
                         input.value = activity_id
                         break;
-                    default:
-                        // do nothing
-                        break;
                 }
             });
         },
@@ -89,6 +86,9 @@
                 console.log(activity_status);
                 if (activity_status === 'done') {
                     checkbox.setAttribute("checked","checked");
+                }
+                else{
+                    checkbox.removeAttribute("checked");
                 }
                 this.updateActivityInputs(id, name);
                 $(this.activityModal).modal('show');

@@ -19,15 +19,29 @@ def signup():
             username = request.form['username'].strip()
             password = request.form['password'].strip()
             if all(len(value) > 0 for value in [username, password]):
-                user = accounts_manager.signup(username, password)
-                if user:
-                    response = {"status": "success",
-                                "message": "user was registered successfully"
-                                }
+                if all(isinstance(value, str) for value in
+                       [username, password]):
+                    user = accounts_manager.signup(username, password)
+                    if user:
+                        response = {"status": "success",
+                                    "message": ("user was registered"
+                                                "successfully")
+                                    }
+                        return render_template("signup.html",
+                                               response=response)
+                    else:
+                        response = {"status": "failed",
+                                    "message": "username is already taken"
+                                    }
+                        return render_template("signup.html",
+                                               response=response)
                 else:
                     response = {"status": "failed",
-                                "message": "username is already taken"
+                                "message": ("please enter a valid username "
+                                            "or password to continue")
                                 }
+                    return render_template("signup.html", response=response)
+
             else:
                 response = {"status": "failed",
                             "message": ("please enter a valid username "
@@ -186,8 +200,8 @@ def single_bucketlist(id):
                                                    "activity_id")):
                 name = request.args['activity_name']
                 activity_id = request.args['activity_id']
-                activity_status = ""
-                if request.args['activity_status'] != '':
+                activity_status = "not done"
+                if 'activity_status' in request.args:
                     status = {
                         "on": "done",
                         "off": "not done",
