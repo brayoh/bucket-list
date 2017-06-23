@@ -1,3 +1,34 @@
+Version 1.0.0:
+ - Merge pull request #10 from brayoh/release/release-1.0
+ - Add tests for getting user bucketlist
+ - Add tests for checking if user exists and getting user id
+ - Change hound config
+ - Add test for checking duplicate username
+ - Fix 400 error on activity update, disable duplicate finder in code climate
+ - Add descriptions to home page about section
+ - Edit readme header
+ - Rename bucketlist.html to bucketlist_items.html and add coveralls for coverage reporting
+ - Remove all print and console.log statements
+ - Add ability to delete bucket list, add bucket list items, add datatables for handling activity data, improve on styling
+ - Merge pull request #9 from brayoh/hotfix/fix-pep8-errors
+ - Fix pep8 errors in all files
+ - Merge branch 'feature/write-unit-tests' into develop
+ - Use class instance of AccountsManager instead of creating a new one
+ - Merge branch 'feature/bucketlist' into develop
+ - Merge branch 'feature/write-unit-tests' into develop
+ - Remove eslint from hound config
+ - Add bucketlist view
+ - Improve user validation to check for empty username and password, add sweet alert js
+ - Make failing tests work for authentication and bucketlist
+ - Add CRUD operations to bucketlist
+ - Add flask links for login, signup to navigation, add floating action button to dashboard and add sweet alert
+ - Delete authentication.py
+ - Add username validation
+ - Add scss mixins partials
+ - Rename authentication to accounts_manager, add bucket list items class
+ - Add CRUD(create,read,update,delete) operations to the api
+ - Add pdf with Class Diagrams for the project
+
 Version 0.2.0:
  - Remove UI folder
  - Merge branch 'master' of github.com:brayoh/bucket-list
