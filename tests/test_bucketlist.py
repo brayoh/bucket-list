@@ -20,6 +20,25 @@ class TestBucketListCrud(unittest.TestCase):
                                                     "try out experiences")
         self.assertEqual(result, True, "should create a new bucketlist")
 
+    def test_gets_user_bucket_list(self):
+        self.account_manager.signup("jane", "doe")
+        user_id = self.account_manager.get_user_id("jane")
+        result = self.bucketlist.create_bucket_list(user_id,
+                                                    "dare devil",
+                                                    "try out experiences")
+        blist = self.bucketlist.get_user_bucketlists(user_id)
+        self.assertGreater(len(blist), 0)
+
+    def test_gets_user_bucket_list_by_id(self):
+        self.account_manager.signup("jane", "doe")
+        user_id = self.account_manager.get_user_id("jane")
+        result = self.bucketlist.create_bucket_list(user_id,
+                                                    "dare devil",
+                                                    "try out experiences")
+        blist_id = self.bucketlist.get_bucketlist_id(user_id,"dare devil")
+        blist = self.bucketlist.get_bucketlist_by_id(user_id, blist_id)
+        self.assertGreater(len(blist), 0)
+
     def test_returns_false_if_name_is_empty(self):
         self.account_manager.signup("jane", "doe")
         user_id = self.account_manager.get_user_id("jane")
