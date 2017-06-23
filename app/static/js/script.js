@@ -29,6 +29,11 @@
                     $(self.activityModal).modal('show');
                 });
             }
+
+            $(this.activityModal).on('hidden.bs.modal', function () {
+                $('div.status').addClass('hidden');
+            })
+
         },
         updateBucketListInputs(blist_id, blist_name, blist_description) {
             // update inputs for the bucket list modal
@@ -67,19 +72,30 @@
                 }
             });
         },
-        showModal(id, name, description, modal_type) {
+        showModal(id, name, description, modal_type, activity_status) {
             if (modal_type === 'add-bucket-list') {
                 var form = document.querySelector('#bucketlist-form');
+
                 // takes name and description of bucketList and appends to modal inputs
                 this.updateBucketListInputs(id, name, description);
                 $(this.bucketListModal).modal('show');
+
+                // change the form method to get
                 form.setAttribute("method","get");
             } else if (modal_type === 'add-activity') {
                 var form = document.querySelector('#activity-form');
+                $('div.status').removeClass('hidden');
+                var checkbox = document.querySelector('#activity_toggle');
+                console.log(activity_status);
+                if (activity_status === 'done') {
+                    checkbox.setAttribute("checked","checked");
+                }
                 this.updateActivityInputs(id, name);
                 $(this.activityModal).modal('show');
+
                 // change the form method to get
                 form.setAttribute("method","get");
+                console.log(form);
             }
         }
     };

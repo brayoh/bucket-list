@@ -186,21 +186,29 @@ def single_bucketlist(id):
                                                    "activity_id")):
                 name = request.args['activity_name']
                 activity_id = request.args['activity_id']
+                activity_status = ""
+                if request.args['activity_status'] != '':
+                    status = {
+                        "on": "done",
+                        "off": "not done",
+                    }
+                    activity_status = status[request.args['activity_status']]
                 if any(value == '' for value in['id', 'activity_id']):
-                    return render_template("bucketlist.html",
+                    return render_template("bucketlist_items.html",
                                            data={"bucketlist": bucketlist,
                                                  "activities": items,
                                                  "error":
                                                  "invalid data provided"})
                 update_item = bucket_list_items.update_item(activity_id,
-                                                            name)
+                                                            name,
+                                                            activity_status)
                 if update_item:
-                    return render_template("bucketlist.html",
+                    return render_template("bucketlist_items.html",
                                            data={"bucketlist": bucketlist,
                                                  "activities": items,
                                                  "error": ""})
                 else:
-                    return render_template("bucketlist.html",
+                    return render_template("bucketlist_items.html",
                                            data={"bucketlist": bucketlist,
                                                  "activities": items,
                                                  "error": "item not found"})
@@ -214,12 +222,12 @@ def single_bucketlist(id):
                     url = "/bucketlist/{}".format(id)
                     return redirect(url)
                 else:
-                    return render_template("bucketlist.html",
+                    return render_template("bucketlist_items.html",
                                            data={"bucketlist": bucketlist,
                                                  "activities": items,
                                                  "error": ("activity"
                                                            "not found")})
-            return render_template("bucketlist.html",
+            return render_template("bucketlist_items.html",
                                    data={"bucketlist": bucketlist,
                                          "activities": items,
                                          "error": ""})
@@ -229,7 +237,7 @@ def single_bucketlist(id):
                     item = bucket_list_items.create_item(int(id), name)
                     if item:
                         items = bucket_list_items.get_item_by_bucketlist_id(id)
-                        return render_template("bucketlist.html",
+                        return render_template("bucketlist_items.html",
                                                data={"bucketlist": bucketlist,
                                                      "activities": items,
                                                      "error": ""})
@@ -238,13 +246,13 @@ def single_bucketlist(id):
                                     "message": ("activity already exists"
                                                 " please choose a"
                                                 "different name")}
-                        return render_template("bucketlist.html",
+                        return render_template("bucketlist_items.html",
                                                data={"bucketlist": bucketlist,
                                                      "activities": items,
                                                      "error": response})
 
                 else:
-                    return render_template("bucketlist.html",
+                    return render_template("bucketlist_items.html",
                                            data={"bucketlist": bucketlist,
                                                  "activities": items,
                                                  "error": ""})

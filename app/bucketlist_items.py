@@ -23,20 +23,22 @@ class BucketListItems(object):
                 "id": item_id,
                 "bucketlist_id": bucketlist_id,
                 "name": name,
-                "done": "not done",
+                "status": "not done",
                 "created_at": datetime.utcnow().isoformat()
             }
             total_items = len(self.items)
             self.items.append(item)
             return True, item if total_items < len(self.items) else False
 
-    def update_item(self, item_id, name):
+    def update_item(self, item_id, name, status):
         """ update an item
         parameters: item id, new name
         """
         for item in self.items:
             if int(item_id) == item['id']:
                 item['name'] = name
+                item['status'] = status
+
                 return True
                 break
         else:
