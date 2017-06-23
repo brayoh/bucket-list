@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
 body,
 html {
   min-height: 100%;
@@ -26,6 +27,8 @@ header {
   z-index: 0; }
 
 .header-overlay {
+  background: #e5e9f2;
+  opacity: 0.8;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -33,8 +36,6 @@ header {
   right: 0;
   width: 100%;
   height: 100%;
-  background: #e5e9f2;
-  opacity: 0.8;
   z-index: 0; }
 
 .header-content {
@@ -69,12 +70,18 @@ header {
   transition: 0.3s background ease-in-out;
   border-radius: 4px; }
   .btn-ghost:hover {
-    cursor: pointer;
     background: #47525e;
-    opacity: 0.4; }
+    opacity: 0.4;
+    cursor: pointer; }
 
-section > .container {
+section .container {
   margin: 100px auto; }
+section .section-title {
+  height: 100px;
+  width: 100%;
+  background: #e9f2ed; }
+  section .section-title h2 {
+    line-height: 3; }
 
 .section-description {
   margin-top: 15px; }
@@ -95,8 +102,19 @@ section.editors-choice .section-title > h2 {
   height: 210px; }
 
 .item-description {
+  position: relative;
   text-align: center;
   padding: 4%; }
+
+.item-caption {
+  position: absolute;
+  top: -72%;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  padding: 3%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff; }
 
 /* banner section */
 section.banner {
@@ -123,57 +141,50 @@ footer {
   padding: 5%; }
 
 /* styling for logged in user */
-.tabs-container {
-  padding: 0 !important; }
-  .tabs-container ul.navbar-tabs {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    text-align: center; }
-    .tabs-container ul.navbar-tabs li {
-      float: left;
-      width: 50%;
-      border: 1px solid #e9f2ed;
-      background: #efefef; }
-      .tabs-container ul.navbar-tabs li a {
-        line-height: 2.5rem; }
-    .tabs-container ul.navbar-tabs li.active {
-      background: #fff; }
-  .tabs-container .tab-content {
-    height: 100%; }
-    .tabs-container .tab-content ul {
-      padding: 0;
-      list-style: none;
-      margin: 0; }
-      .tabs-container .tab-content ul li {
-        padding: 1%;
-        min-height: 50px;
-        text-indent: 3%;
-        border: 1px solid #e9f2ed; }
-        .tabs-container .tab-content ul li span.numbering {
-          font-size: 1.6rem; }
-        .tabs-container .tab-content ul li span.bucketlist-item {
-          position: relative;
-          left: 5%;
-          font-size: 1.3rem;
-          line-height: 1.5; }
-        .tabs-container .tab-content ul li i {
-          position: relative;
-          float: right;
-          right: 5%;
-          top: 7px;
-          font-size: 1.5rem;
-          margin-left: 1.5%; }
-          .tabs-container .tab-content ul li i:hover {
-            cursor: pointer; }
-      .tabs-container .tab-content ul li:first-of-type {
-        border-top: none; }
+.activity-options span {
+  color: #0275d8; }
+  .activity-options span:hover {
+    cursor: pointer; }
 
 /* general use classes */
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 60px;
+  width: 56px; }
+  .floating-btn__action-button {
+    cursor: pointer;
+    position: fixed; }
+  .floating-btn__action-button {
+    bottom: 5%;
+    right: 5%; }
+    .floating-btn__action-button:hover .action-button__icon {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.28); }
+
+.action-button__icon {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+  background-color: #ff4081;
+  border-radius: 50%;
+  color: #fff;
+  padding: 16px; }
+.action-button__text--hide {
+  display: none; }
+.action-button__text--show {
+  background-color: #212121;
+  border-radius: 3px;
+  color: #fff;
+  right: 75px;
+  font-size: 14px;
+  font-family: "Helvetica Neue";
+  opacity: 0.8;
+  padding: 5px 9px;
+  position: absolute;
+  top: 2px;
+  white-space: nowrap; }
+
 /* ghost button */
 .btn-ghost-2 {
-  background: black;
+  background: #000;
   opacity: 0.3;
   color: #fff;
   border-color: #0275d8;
@@ -194,6 +205,38 @@ footer {
   width: 100%;
   height: 100px;
   background: #e9f2ed; }
+
+.bucketlist-empty {
+  width: 100%;
+  margin-top: 10%; }
+
+.modal .modal-header-primary {
+  color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid #e9f2ed;
+  background-color: #0275d8;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px; }
+  .modal .modal-header-primary .modal-title {
+    width: 100%;
+    text-align: center; }
+.modal .modal-footer button {
+  position: relative; }
+  .modal .modal-footer button:hover {
+    cursor: pointer; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.hidden {
+  display: none !important; }
 
 /* smooth shadow to imitate float z*/
 .shadow {

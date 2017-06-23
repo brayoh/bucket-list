@@ -1,10 +1,11 @@
-# andela-bootcamp
-Pre Bootcamp Technical Assesment Test
+# My BucketList App
+ a bucket list is a list of things a person wants to achieve or experience, as before reaching a certain age or dying,
+ this web app allows to add, edit, delete or update your bucketlist(s) over time.
 
 [![Travis Badge](https://travis-ci.org/brayoh/bucket-list.svg?branch=master)]()
 [![Code Climate](https://img.shields.io/codeclimate/github/kabisaict/flow.svg)]()
 
-## How to setup - for Debian users
+## How to setup
 
 * ### clone the repo to desired directory
     git clone https://github.com/brayoh/bucket-list.git
@@ -25,10 +26,10 @@ Pre Bootcamp Technical Assesment Test
      pip install -r requirements.txt
 
 *  ### make script executable
-    chmod +x server.sh
+    chmod +x ./scripts/server_run.sh
 
 *  ### run
-    ./server.sh
+    ./scripts/server_run.sh
 
 *  ### open browser and navigate to
     http://127.0.0.1:5000

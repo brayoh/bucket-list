@@ -1,5 +1,6 @@
 @import "variables";
 @import "partials/mixins";
+@include google-font("Material+Icons");
 
 body,
 html {
@@ -89,8 +90,20 @@ header {
   }
 }
 
-section > .container {
-  margin: 100px auto;
+section {
+  .container {
+    margin: 100px auto;
+  }
+
+  .section-title {
+    height: 100px;
+    width: 100%;
+    background: $light-grey;
+
+    h2 {
+      line-height: 3;
+    }
+  }
 }
 
 .section-description {
@@ -124,8 +137,20 @@ section.editors-choice {
 }
 
 .item-description {
+  position: relative;
   text-align: center;
   padding: 4%;
+}
+
+.item-caption {
+  position: absolute;
+  top: -72%;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  padding: 3%;
+  background: rgba(0,0,0,.6);
+  color: #fff;
 }
 /* banner section */
 section.banner {
@@ -153,78 +178,67 @@ footer {
   padding: 5%;
 }
 /* styling for logged in user */
-.tabs-container {
-  padding: 0 !important;
-
-  ul.navbar-tabs {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-
-    li {
-      float: left;
-      width: 50%;
-      border: 1px solid $light-grey;
-      background: $grey;
-
-      a {
-        line-height: 2.5rem;
-      }
-    }
-
-    li.active {
-      background: $white;
-    }
-  }
-
-  .tab-content {
-    height: 100%;
-
-    ul {
-      padding: 0;
-      list-style: none;
-      margin: 0;
-
-      li {
-        padding: 1%;
-        min-height: 50px;
-        text-indent: 3%;
-        border: 1px solid $light-grey;
-
-        span.numbering {
-          font-size: 1.6rem;
-        }
-
-        span.bucketlist-item {
-          position: relative;
-          left: 5%;
-          font-size: 1.3rem;
-          line-height: 1.5;
-        }
-
-        i {
-          position: relative;
-          float: right;
-          right: 5%;
-          top: 7px;
-          font-size: 1.5rem;
-          margin-left: 1.5%;
-
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
-
-      li:first-of-type {
-        border-top: none;
-      }
+.activity-options{
+  span{
+    color: $blue;
+    &:hover{
+      cursor: pointer;
     }
   }
 }
 /* general use classes */
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 60px;
+  width: 56px;
+
+  &__action-button {
+    cursor: pointer;
+    position: fixed;
+  }
+
+  &__action-button {
+    bottom: 5%;
+    right: 5%;
+
+    &:hover {
+      .action-button__icon {
+        @include buttonShadow(8px);
+      }
+    }
+  }
+}
+
+.action-button {
+  &__icon {
+    @include buttonShadow(4px);
+    background-color: #ff4081;
+    border-radius: 50%;
+    color: #fff;
+    padding: 16px;
+  }
+
+  &__text {
+    &--hide {
+      display: none;
+    }
+
+    &--show {
+      background-color: #212121;
+      border-radius: 3px;
+      color: #fff;
+      right: 75px;
+      font-size: 14px;
+      font-family: "Helvetica Neue";
+      opacity: 0.8;
+      padding: 5px 9px;
+      position: absolute;
+      top: 2px;
+      white-space: nowrap;
+    }
+  }
+}
 /* ghost button */
 .btn-ghost-2 {
   @include dark-overlay(0.3);
@@ -251,6 +265,52 @@ footer {
   width: 100%;
   height: 100px;
   background: $light-grey;
+}
+
+.bucketlist-empty {
+  width: 100%;
+  margin-top: 10%;
+}
+
+.modal {
+  .modal-header-primary {
+    color: $white;
+    padding: 9px 15px;
+    border-bottom: 1px solid $light-grey;
+    background-color: $primary;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    .modal-title {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .modal-footer {
+    button {
+      position: relative;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+.hidden{
+  display: none !important;
 }
 /* smooth shadow to imitate float z*/
 .shadow {

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="navbar navbar-inverse bg-primary navbar-toggleable-md navbar-light">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                 </button>
+            <a class="navbar-brand" href="/">List Bucket</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mr-6">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">My bucketlist</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Add Activity</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- end header  -->
+
+        <!-- Add activity Modal -->
+        <div class="modal fade" id="addActivityModal" tabindex="-1" role="dialog" aria-labelledby="addActivityModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="" method="post" id="activity-form">
+                        <div class="modal-header modal-header-primary">
+                            <h5 class="modal-title" id="addActivityModaLabel">Add Activity</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="username">Activity Name:</label>
+                                    <input type="text" class="form-control modal-input" placeholder="activity name" name="activity_name">
+                                    <input type="hidden" class="form-control modal-input" name="activity_id">
+                                </div>
+                                <div class="form-group status hidden">
+                                    <h5>Activity Status:</h5>
+                                    <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                                        <input type="checkbox" name="activity_status" id="activity_toggle" class="custom-control-input">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">Done</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-secondary left" data-dismiss="modal">Close</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary right">Add Activity</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--  end activity modal -->
+        <section class="bucketlist-info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-7 m-auto alert alert-danger hidden text-center" role="alert" style="margin-bottom: 20px !important">
+                        <strong>Oops!</strong> error occured.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8 m-auto">
+                        <table id="bucketlist-activities" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Bucket List Name</th>
+                                    <th>Activity Name</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Bucket List Name</th>
+                                    <th>Activity Name</th>
+                                    <th>Created at</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for activity in data.activities %}
+                                <tr>
+                                    <td>{{ activity.id }}</td>
+                                    <td>{{ data.bucketlist.name }}</td>
+                                    <td>{{ activity.name }}</td>
+                                    <td>{{ activity.created_at }}</td>
+                                    <td>{{ activity.status }}</td>
+                                    <td class="activity-options">
+                                        <span class="fa fa-edit fa-2x" onclick="javascript:BucketList.showModal('{{ activity.id }}','{{ activity.name }}', '','add-activity','{{ activity.status }}')"></span>
+                                        <a href="/bucketlist/{{ data.bucketlist.id }}?delete={{ activity.id }}"><span class="fa fa-trash-o fa-2x"></span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="floating-btn" id="add-activity">
+            <div class="floating-btn__action-button" id="action-button">
+                <i class="action-button__icon material-icons">add</i>
+                <p class="action-button__text--show">Add Items</p>
+            </div>
+        </section>
+
+        <!-- end login section -->
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        var error = "{{ data.error.status }}";
+        if (error === 'failed') {
+            var message = "{{ data.error.message }}";
+            $('.alert-danger').removeClass('hidden');
+            $('.alert-danger').html(message);
+        }
+        $(document).ready(function() {
+            $('#bucketlist-activities').DataTable();
+        });
+    </script>
+</body>
+
+</html>
