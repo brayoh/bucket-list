@@ -126,10 +126,8 @@
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script>
         var status = "{{ data.response.status }}";
-        console.log(status);
         if (status === "failed") {
             var message = "{{ data.response.message }}";
-            console.log(message);
             $('.alert-danger').removeClass('hidden');
             $('.alert-danger').html(message);
         }

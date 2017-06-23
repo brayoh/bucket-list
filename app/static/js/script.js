@@ -74,7 +74,6 @@
                 this.updateBucketListInputs(id, name, description);
                 $(this.bucketListModal).modal('show');
                 form.setAttribute("method","get");
-                console.log(form);
             } else if (modal_type === 'add-activity') {
                 var form = document.querySelector('#activity-form');
                 this.updateActivityInputs(id, name);
