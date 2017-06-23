@@ -1,5 +1,6 @@
-# andela-bootcamp
-Pre Bootcamp Technical Assesment Test
+# My BucketList App
+ a bucket list is a list of things a person wants to achieve or experience, as before reaching a certain age or dying,
+ this web app allows to add, edit, delete or update your bucketlist(s) over time.
 
 [![Travis Badge](https://travis-ci.org/brayoh/bucket-list.svg?branch=master)]()
 [![Code Climate](https://img.shields.io/codeclimate/github/kabisaict/flow.svg)]()
