@@ -40,16 +40,6 @@ class BucketListItems(object):
         else:
             return False
 
-    def get_items(self, bucketlist_id):
-        """ get items for a specific bucketlist
-        parameters: user_id
-        """
-        items = []
-        for item in self.items:
-            if bucketlist_id == item['bucketlist_id']:
-                items.append(blist)
-        return items
-
     def get_item_by_bucketlist_id(self, bucketlist_id):
         """ get bucketlist items for a specific user using bucketlist_id
         parameters: bucketlist_id
