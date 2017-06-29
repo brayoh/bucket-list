@@ -29,7 +29,7 @@ class AccountsManager(object):
             return False
         else:
             self.users.append(user)
-            logger.info(self.users, "users info")
+            logger.error(self.users, "users info")
             # print(self.users)
             # check if user list has incremented to be sure that user was added
             return True if total_users < len(self.users) else False
