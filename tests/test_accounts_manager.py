@@ -56,8 +56,9 @@ class AccountsManagerTest(unittest.TestCase):
         self.assertFalse(user_id)
 
     def test_duplicate_username(self):
-        user1 = self.account_manager.login("brian", "new password")
-        user2 = self.account_manager.login("brian", "new password")
+        user1 = self.account_manager.signup("brian", "pass")
+        user2 = self.account_manager.signup("brian", "password")
+        self.assertTrue(user1)
         self.assertFalse(user2)
 
     def test_logins_in_user(self):
