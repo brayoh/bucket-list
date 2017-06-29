@@ -12,7 +12,7 @@ install:
 
 # run test
 script:
-  - coverage run --source=app -m py.test && coverage report
+  - coverage run --source=controllers -m py.test && coverage report
   - coveralls
 
 after_success:

@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime
-id = 0
 
 logger = logging.getLogger(__name__)
 
@@ -8,6 +7,7 @@ class AccountsManager(object):
     """ This class handles user authentication and registration """
     def __init__(self):
         self.users = []
+        self.id = 0
 
     def signup(self, username, password):
         """add a new user to the db
@@ -16,21 +16,19 @@ class AccountsManager(object):
         if len(self.users) > 0:
             user_id = (self.users[len(self.users)-1]['id'] + 1)
         else:
-            user_id = id + 1
-        user = {
-            'id': user_id,
-            'username': username,
-            'password': password,
-            'created_at': datetime.utcnow().isoformat()
+            user_id = self.id + 1
+
+        user = { 'id': user_id, 'username': username, 'password': password,
+                'created_at': datetime.utcnow().isoformat()
         }
-        total_users = len(self.users)
 
         if self.check_user_exists(username):
             return False
         else:
+            total_users = len(self.users)
             self.users.append(user)
-            logger.info(self.users, "users info")
-            # print(self.users)
+            logger.error("users list {}".format(self.users))
+
             # check if user list has incremented to be sure that user was added
             return True if total_users < len(self.users) else False
 

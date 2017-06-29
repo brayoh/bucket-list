@@ -1,7 +1,7 @@
 """ This class contains tests for AccountsManager class
 """
 import unittest
-from app.accounts_manager import AccountsManager
+from controllers.accounts_manager import AccountsManager
 
 
 class AccountsManagerTest(unittest.TestCase):
@@ -34,10 +34,26 @@ class AccountsManagerTest(unittest.TestCase):
         check = self.account_manager.check_user_exists("brian")
         self.assertTrue(check)
 
+    def test_return_false_if_user_doesnt_exist(self):
+        user = self.account_manager.signup("brian", "password")
+        check = self.account_manager.check_user_exists("bria")
+        self.assertFalse(check)
+
+    def test_increments_user_id(self):
+        user = self.account_manager.signup("brian", "password")
+        user2 = self.account_manager.signup("john", "pass")
+        user_id = self.account_manager.get_user_id("john")
+        self.assertEqual(user_id, 2)
+
     def test_returns_user_id(self):
         user = self.account_manager.signup("brian", "password")
         user_id = self.account_manager.get_user_id("brian")
         self.assertEqual(user_id, 1)
+
+    def test_user_returns_false_for_unregistered(self):
+        user = self.account_manager.signup("brian", "password")
+        user_id = self.account_manager.get_user_id("doe")
+        self.assertFalse(user_id)
 
     def test_duplicate_username(self):
         user1 = self.account_manager.login("brian", "new password")

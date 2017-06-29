@@ -1,7 +1,7 @@
 import unittest
-from app.bucketlist import BucketList
-from app.bucketlist_items import BucketListItems
-from app.accounts_manager import AccountsManager
+from controllers.bucketlist import BucketList
+from controllers.bucketlist_items import BucketListItems
+from controllers.accounts_manager import AccountsManager
 
 class TestBucketListItems(unittest.TestCase):
     """ docstring for TestBucketListItems."""
@@ -22,6 +22,10 @@ class TestBucketListItems(unittest.TestCase):
     def test_creates_new_item(self):
         item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
         self.assertTrue(item)
+    def test_duplicate_items(self):
+        item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
+        item2 = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
+        self.assertFalse(item2)
 
     def test_updates_item(self):
         item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
@@ -29,10 +33,21 @@ class TestBucketListItems(unittest.TestCase):
         update = self.bucketlist_items.update_item(item_id, "go climbing", "not done")
         self.assertTrue(update)
 
+    def test_doesnt_update_nonexisting_item(self):
+        item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
+        update = self.bucketlist_items.update_item(5, "go climbing", "not done")
+        self.assertFalse(update)
+
     def test_gets_item_id(self):
         item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
         item_id = self.bucketlist_items.get_item_id("go bungee jumping")
         self.assertEqual(item_id, 1)
+
+    def test_increments_item_id(self):
+        item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
+        item2 = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee")
+        item_id = self.bucketlist_items.get_item_id("go bungee")
+        self.assertEqual(item_id, 2)
 
     def test_returns_true_if_item_exists(self):
         item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
@@ -43,5 +58,10 @@ class TestBucketListItems(unittest.TestCase):
     def test_deletes_item(self):
         item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
         item_id = self.bucketlist_items.get_item_id("go bungee jumping")
-        exists = self.bucketlist_items.delete_item(item_id)
-        self.assertTrue(exists)
+        deleted = self.bucketlist_items.delete_item(item_id)
+        self.assertTrue(deleted)
+
+    def test_doesnt_delete_nonexisting_item(self):
+        item = self.bucketlist_items.create_item(self.bucketlist_id, "go bungee jumping")
+        deleted = self.bucketlist_items.delete_item(10)
+        self.assertFalse(deleted)

@@ -1,6 +1,6 @@
 import unittest
-from app.bucketlist import BucketList
-from app.accounts_manager import AccountsManager
+from controllers.bucketlist import BucketList
+from controllers.accounts_manager import AccountsManager
 
 
 class TestBucketListCrud(unittest.TestCase):
@@ -19,6 +19,40 @@ class TestBucketListCrud(unittest.TestCase):
                                                     "dare devil",
                                                     "try out experiences")
         self.assertEqual(result, True, "should create a new bucketlist")
+
+    def test_gets_bucketlist_id(self):
+        self.account_manager.signup("jane", "doe")
+        user_id = self.account_manager.get_user_id("jane")
+        result = self.bucketlist.create_bucket_list(user_id,
+                                                    "dare devil",
+                                                    "try out experiences")
+        blist_id = self.bucketlist.get_bucketlist_id(user_id, "dare devil")
+        self.assertEqual(blist_id, 1)
+
+    def test_bucketlist_exists(self):
+        self.account_manager.signup("jane", "doe")
+        user_id = self.account_manager.get_user_id("jane")
+        result = self.bucketlist.create_bucket_list(user_id,
+                                                    "dare devil",
+                                                    "try out experiences")
+        blist_id = self.bucketlist.get_bucketlist_id(user_id, "dare devil")
+        exists = self.bucketlist.check_bucketlist_exists(blist_id)
+        self.assertTrue(exists)
+
+
+    def test_bucketlist_name_exists(self):
+        self.account_manager.signup("jane", "doe")
+        user_id = self.account_manager.get_user_id("jane")
+        result = self.bucketlist.create_bucket_list(user_id,
+                                                    "dare devil",
+                                                    "try out experiences")
+        exists = self.bucketlist.check_bucketlist_name_exists("dare devil")
+        self.assertTrue(exists)
+
+
+    def test_false_if_bucketlist_name_not_found(self):
+        exists = self.bucketlist.check_bucketlist_name_exists("dare devils")
+        self.assertFalse(exists)
 
     def test_gets_user_bucket_list(self):
         self.account_manager.signup("jane", "doe")
@@ -105,3 +139,7 @@ class TestBucketListCrud(unittest.TestCase):
                                                           "dare devil")
         result = self.bucketlist.delete_bucket_list(bucketlist_id)
         self.assertEqual(result, True)
+
+    def test_doesnt_delete_nonexisting_bucketlist(self):
+        result = self.bucketlist.delete_bucket_list(10)
+        self.assertFalse(result)
