@@ -15,16 +15,14 @@ class BucketListItems(object):
             item_id = (self.items[len(self.items)-1]['id'] + 1)
         else:
             item_id = self.id + 1
+
         if self.check_item_exists(name):
             return False
         else:
-            item = {
-                "id": item_id,
-                "bucketlist_id": bucketlist_id,
-                "name": name,
-                "status": "not done",
-                "created_at": datetime.utcnow().isoformat()
-            }
+            item = {"id": item_id, "bucketlist_id": bucketlist_id,
+                    "name": name, "status": "not done",
+                    "created_at": datetime.utcnow().isoformat()
+                    }
             total_items = len(self.items)
             self.items.append(item)
             return True, item if total_items < len(self.items) else False
@@ -37,11 +35,10 @@ class BucketListItems(object):
             if int(item_id) == item['id']:
                 item['name'] = name
                 item['status'] = status
-
                 return True
                 break
         else:
-            return "item not found"
+            return False
 
     def get_items(self, bucketlist_id):
         """ get items for a specific bucketlist
@@ -83,4 +80,4 @@ class BucketListItems(object):
                 self.items.remove(item)
                 return True
                 break
-        return "item not found"
+        return False

@@ -17,6 +17,7 @@ class AccountsManager(object):
             user_id = (self.users[len(self.users)-1]['id'] + 1)
         else:
             user_id = self.id + 1
+            
         user = { 'id': user_id, 'username': username, 'password': password,
                 'created_at': datetime.utcnow().isoformat()
         }
