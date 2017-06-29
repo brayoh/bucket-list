@@ -39,6 +39,12 @@ class AccountsManagerTest(unittest.TestCase):
         check = self.account_manager.check_user_exists("bria")
         self.assertFalse(check)
 
+    def test_increments_user_id(self):
+        user = self.account_manager.signup("brian", "password")
+        user2 = self.account_manager.signup("john", "pass")
+        user_id = self.account_manager.get_user_id("john")
+        self.assertEqual(user_id, 2)
+
     def test_returns_user_id(self):
         user = self.account_manager.signup("brian", "password")
         user_id = self.account_manager.get_user_id("brian")
