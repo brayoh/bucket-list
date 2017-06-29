@@ -4,7 +4,7 @@
 
 [![Travis Badge](https://travis-ci.org/brayoh/bucket-list.svg?branch=master)]()
 [![Code Climate](https://img.shields.io/codeclimate/github/kabisaict/flow.svg)]()
-[![Coverage Status](https://coveralls.io/repos/github/brayoh/bucket-list/badge.svg?branch=master)](https://coveralls.io/github/brayoh/bucket-list?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/brayoh/bucket-list/badge.svg)](https://coveralls.io/github/brayoh/bucket-list)
 
 ## How to setup
 
