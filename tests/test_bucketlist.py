@@ -1,6 +1,6 @@
 import unittest
-from app.bucketlist import BucketList
-from app.accounts_manager import AccountsManager
+from controllers.bucketlist import BucketList
+from controllers.accounts_manager import AccountsManager
 
 
 class TestBucketListCrud(unittest.TestCase):

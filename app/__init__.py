@@ -2,9 +2,9 @@ import string
 import random
 
 from flask import Flask
-from app.accounts_manager import AccountsManager
-from app.bucketlist import BucketList
-from app.bucketlist_items import BucketListItems
+from controllers.accounts_manager import AccountsManager
+from controllers.bucketlist import BucketList
+from controllers.bucketlist_items import BucketListItems
 
 
 # Initialize the app

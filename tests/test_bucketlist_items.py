@@ -1,7 +1,7 @@
 import unittest
-from app.bucketlist import BucketList
-from app.bucketlist_items import BucketListItems
-from app.accounts_manager import AccountsManager
+from controllers.bucketlist import BucketList
+from controllers.bucketlist_items import BucketListItems
+from controllers.accounts_manager import AccountsManager
 
 class TestBucketListItems(unittest.TestCase):
     """ docstring for TestBucketListItems."""

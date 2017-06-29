@@ -1,7 +1,7 @@
 """ This class contains tests for AccountsManager class
 """
 import unittest
-from app.accounts_manager import AccountsManager
+from controllers.accounts_manager import AccountsManager
 
 
 class AccountsManagerTest(unittest.TestCase):
