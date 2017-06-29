@@ -1,11 +1,10 @@
 from datetime import datetime
-id = 0
-
 
 class BucketListItems(object):
     """docstring for BucketListItems."""
     def __init__(self):
         self.items = []
+        self.id = 0
 
     """ create a new item
         parameters: user id, item's name, item's description
@@ -15,7 +14,7 @@ class BucketListItems(object):
         if len(self.items) > 0:
             item_id = (self.items[len(self.items)-1]['id'] + 1)
         else:
-            item_id = id + 1
+            item_id = self.id + 1
         if self.check_item_exists(name):
             return False
         else:

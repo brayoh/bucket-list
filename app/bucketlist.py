@@ -1,13 +1,12 @@
 """ BucketList Class"""
 from datetime import datetime
-ID = 0
-
 
 class BucketList(object):
     """ This class will handle creation, updating, retrieval
     and deleting of BucketLists"""
     def __init__(self):
         self.bucketlist = []
+        self.id = 0
 
     def create_bucket_list(self, user_id, name, description):
         """ create a new bucketlist
@@ -16,7 +15,7 @@ class BucketList(object):
             last_item = self.bucketlist[len(self.bucketlist)-1]
             bucketlist_id = (last_item['id'] + 1)
         else:
-            bucketlist_id = ID + 1
+            bucketlist_id = self.id + 1
         total_items = len(self.bucketlist)
         try:
             if all(len(value) > 0 for value in [name, description]):
