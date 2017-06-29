@@ -50,7 +50,7 @@
                         input.value = blist_id
                         break;
                     default:
-                        // do nothing
+                        input.value = "";
                         break;
                 }
             });
